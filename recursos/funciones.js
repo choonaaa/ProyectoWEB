@@ -12,15 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    /* --- Filtros del tablero Kanban --- */
     var botonesFiltro = document.querySelectorAll(".filtro");
     var tickets = document.querySelectorAll(".ticket");
     var columnas = document.querySelectorAll(".kanban .columna");
 
-    // Filtros actualmente seleccionados (por defecto, todos)
     var seleccion = { categoria: "todas", prioridad: "todas" };
 
-    // Aplica la selección: muestra u oculta cada ticket
     function aplicarFiltros() {
         tickets.forEach(function (ticket) {
             var coincideCategoria = (seleccion.categoria === "todas" ||
@@ -28,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
             var coincidePrioridad = (seleccion.prioridad === "todas" ||
                 ticket.dataset.prioridad === seleccion.prioridad);
 
-            // Se muestra solo si coincide con ambos filtros
             if (coincideCategoria && coincidePrioridad) {
                 ticket.classList.remove("oculto");
             } else {
@@ -39,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
         mostrarColumnasVacias();
     }
 
-    // Muestra un aviso en las columnas que quedaron sin tickets visibles
     function mostrarColumnasVacias() {
         columnas.forEach(function (columna) {
             var visibles = columna.querySelectorAll(".ticket:not(.oculto)");
@@ -58,16 +53,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Al hacer clic en un filtro
     botonesFiltro.forEach(function (btn) {
         btn.addEventListener("click", function () {
-            var tipo = btn.dataset.tipo;    // "categoria" o "prioridad"
-            var valor = btn.dataset.valor;  // "hardware", "alta", "todas"...
+            var tipo = btn.dataset.tipo;   
+            var valor = btn.dataset.valor;  
 
-            // Guarda la selección de ese grupo
             seleccion[tipo] = valor;
 
-            // Marca como activo solo el botón elegido dentro de su grupo
             document.querySelectorAll('.filtro[data-tipo="' + tipo + '"]')
                 .forEach(function (b) { b.classList.remove("activo"); });
             btn.classList.add("activo");
