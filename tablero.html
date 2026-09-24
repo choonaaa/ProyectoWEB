@@ -47,19 +47,21 @@
                 <section aria-labelledby="filtro-categorias">
                     <h3 id="filtro-categorias">Categorías</h3>
                     <ul class="lista-filtros">
-                        <li><a href="#">Hardware</a></li>
-                        <li><a href="#">Software</a></li>
-                        <li><a href="#">Redes</a></li>
-                        <li><a href="#">Accesos</a></li>
+                        <li><button type="button" class="filtro activo" data-tipo="categoria" data-valor="todas">Todas</button></li>
+                        <li><button type="button" class="filtro" data-tipo="categoria" data-valor="hardware">Hardware</button></li>
+                        <li><button type="button" class="filtro" data-tipo="categoria" data-valor="software">Software</button></li>
+                        <li><button type="button" class="filtro" data-tipo="categoria" data-valor="redes">Redes</button></li>
+                        <li><button type="button" class="filtro" data-tipo="categoria" data-valor="accesos">Accesos</button></li>
                     </ul>
                 </section>
 
                 <section aria-labelledby="filtro-prioridad">
                     <h3 id="filtro-prioridad">Prioridad</h3>
                     <ul class="lista-filtros">
-                        <li><a href="#">Alta</a></li>
-                        <li><a href="#">Media</a></li>
-                        <li><a href="#">Baja</a></li>
+                        <li><button type="button" class="filtro activo" data-tipo="prioridad" data-valor="todas">Todas</button></li>
+                        <li><button type="button" class="filtro" data-tipo="prioridad" data-valor="alta">Alta</button></li>
+                        <li><button type="button" class="filtro" data-tipo="prioridad" data-valor="media">Media</button></li>
+                        <li><button type="button" class="filtro" data-tipo="prioridad" data-valor="baja">Baja</button></li>
                     </ul>
                 </section>
             </aside>
@@ -69,19 +71,19 @@
                 <div class="columna">
                     <h2 class="columna__titulo">Nuevo</h2>
 
-                    <article class="ticket">
+                    <article class="ticket" data-categoria="hardware" data-prioridad="alta">
                         <h3 class="ticket__id">#TK-001</h3>
                         <p class="ticket__titulo">La impresora de contaduría no responde</p>
                         <p class="ticket__meta"><span class="etiqueta etiqueta--alta">Alta</span> Hardware</p>
                     </article>
 
-                    <article class="ticket">
+                    <article class="ticket" data-categoria="accesos" data-prioridad="media">
                         <h3 class="ticket__id">#TK-002</h3>
                         <p class="ticket__titulo">Solicitud de acceso al sistema de ventas</p>
                         <p class="ticket__meta"><span class="etiqueta etiqueta--media">Media</span> Accesos</p>
                     </article>
 
-                    <article class="ticket">
+                    <article class="ticket" data-categoria="software" data-prioridad="baja">
                         <h3 class="ticket__id">#TK-003</h3>
                         <p class="ticket__titulo">El correo no envía adjuntos grandes</p>
                         <p class="ticket__meta"><span class="etiqueta etiqueta--baja">Baja</span> Software</p>
@@ -91,13 +93,13 @@
                 <div class="columna">
                     <h2 class="columna__titulo">En Progreso</h2>
 
-                    <article class="ticket">
+                    <article class="ticket" data-categoria="redes" data-prioridad="alta">
                         <h3 class="ticket__id">#TK-004</h3>
                         <p class="ticket__titulo">Sin conexión a internet en el piso 2</p>
                         <p class="ticket__meta"><span class="etiqueta etiqueta--alta">Alta</span> Redes</p>
                     </article>
 
-                    <article class="ticket">
+                    <article class="ticket" data-categoria="software" data-prioridad="baja">
                         <h3 class="ticket__id">#TK-005</h3>
                         <p class="ticket__titulo">Instalación de planilla de cálculo</p>
                         <p class="ticket__meta"><span class="etiqueta etiqueta--baja">Baja</span> Software</p>
@@ -107,13 +109,13 @@
                 <div class="columna">
                     <h2 class="columna__titulo">Resuelto</h2>
 
-                    <article class="ticket">
+                    <article class="ticket" data-categoria="hardware" data-prioridad="baja">
                         <h3 class="ticket__id">#TK-006</h3>
                         <p class="ticket__titulo">Cambio de mouse defectuoso</p>
                         <p class="ticket__meta"><span class="etiqueta etiqueta--baja">Baja</span> Hardware</p>
                     </article>
 
-                    <article class="ticket">
+                    <article class="ticket" data-categoria="accesos" data-prioridad="media">
                         <h3 class="ticket__id">#TK-007</h3>
                         <p class="ticket__titulo">Restablecer contraseña de usuario</p>
                         <p class="ticket__meta"><span class="etiqueta etiqueta--media">Media</span> Accesos</p>
