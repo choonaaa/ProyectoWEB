@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tablero Kanban de HelpDesk IT: seguí el estado de los tickets de soporte por categoría y prioridad.">
+    <meta name="author" content="Equipo HelpDesk IT">
+    <title>HelpDesk IT | Tablero de Tickets</title>
+    <link rel="stylesheet" href="recursos/style.css">
+</head>
+<body>
+
+    <header class="cabecera">
+        <div class="contenedor cabecera__contenido">
+            <a href="index.html" class="logo">HelpDesk<span>IT</span></a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="navegacion" id="navPrincipal" aria-label="Navegación principal">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="tablero.html" class="activo">Tablero</a></li>
+                    <li><a href="nuevo-ticket.html">Nuevo Ticket</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        <h1>Tablero de Tickets</h1>
+        <p class="subtitulo">Visualizá el estado de todas las incidencias de soporte y priorizá el trabajo del equipo.</p>
+
+        <!-- Búsqueda de tickets -->
+        <form class="busqueda" role="search" action="#" method="get">
+            <label for="buscar">Buscar ticket</label>
+            <input type="search" id="buscar" name="buscar" placeholder="Ej: impresora, red, #TK-001...">
+            <button type="submit" class="boton boton--pequeno">Buscar</button>
+        </form>
+
+        <div class="tablero">
+            <!-- Panel lateral de filtros -->
+            <aside class="filtros" aria-label="Filtros del tablero">
+                <h2>Filtros</h2>
+
+                <section aria-labelledby="filtro-categorias">
+                    <h3 id="filtro-categorias">Categorías</h3>
+                    <ul class="lista-filtros">
+                        <li><a href="#">Hardware</a></li>
+                        <li><a href="#">Software</a></li>
+                        <li><a href="#">Redes</a></li>
+                        <li><a href="#">Accesos</a></li>
+                    </ul>
+                </section>
+
+                <section aria-labelledby="filtro-prioridad">
+                    <h3 id="filtro-prioridad">Prioridad</h3>
+                    <ul class="lista-filtros">
+                        <li><a href="#">Alta</a></li>
+                        <li><a href="#">Media</a></li>
+                        <li><a href="#">Baja</a></li>
+                    </ul>
+                </section>
+            </aside>
+
+            <!-- Tablero Kanban -->
+            <section class="kanban" aria-label="Tablero Kanban de tickets">
+                <div class="columna">
+                    <h2 class="columna__titulo">Nuevo</h2>
+
+                    <article class="ticket">
+                        <h3 class="ticket__id">#TK-001</h3>
+                        <p class="ticket__titulo">La impresora de contaduría no responde</p>
+                        <p class="ticket__meta"><span class="etiqueta etiqueta--alta">Alta</span> Hardware</p>
+                    </article>
+
+                    <article class="ticket">
+                        <h3 class="ticket__id">#TK-002</h3>
+                        <p class="ticket__titulo">Solicitud de acceso al sistema de ventas</p>
+                        <p class="ticket__meta"><span class="etiqueta etiqueta--media">Media</span> Accesos</p>
+                    </article>
+
+                    <article class="ticket">
+                        <h3 class="ticket__id">#TK-003</h3>
+                        <p class="ticket__titulo">El correo no envía adjuntos grandes</p>
+                        <p class="ticket__meta"><span class="etiqueta etiqueta--baja">Baja</span> Software</p>
+                    </article>
+                </div>
+
+                <div class="columna">
+                    <h2 class="columna__titulo">En Progreso</h2>
+
+                    <article class="ticket">
+                        <h3 class="ticket__id">#TK-004</h3>
+                        <p class="ticket__titulo">Sin conexión a internet en el piso 2</p>
+                        <p class="ticket__meta"><span class="etiqueta etiqueta--alta">Alta</span> Redes</p>
+                    </article>
+
+                    <article class="ticket">
+                        <h3 class="ticket__id">#TK-005</h3>
+                        <p class="ticket__titulo">Instalación de planilla de cálculo</p>
+                        <p class="ticket__meta"><span class="etiqueta etiqueta--baja">Baja</span> Software</p>
+                    </article>
+                </div>
+
+                <div class="columna">
+                    <h2 class="columna__titulo">Resuelto</h2>
+
+                    <article class="ticket">
+                        <h3 class="ticket__id">#TK-006</h3>
+                        <p class="ticket__titulo">Cambio de mouse defectuoso</p>
+                        <p class="ticket__meta"><span class="etiqueta etiqueta--baja">Baja</span> Hardware</p>
+                    </article>
+
+                    <article class="ticket">
+                        <h3 class="ticket__id">#TK-007</h3>
+                        <p class="ticket__titulo">Restablecer contraseña de usuario</p>
+                        <p class="ticket__meta"><span class="etiqueta etiqueta--media">Media</span> Accesos</p>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="pie">
+        <div class="contenedor pie__contenido">
+            <p><strong>HelpDesk IT</strong> — Proyecto Integrador de Programación Web I</p>
+            <p>Tecnicatura Universitaria en Programación de Sistemas · UCES</p>
+            <nav aria-label="Enlaces del pie">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="tablero.html">Tablero</a></li>
+                    <li><a href="nuevo-ticket.html">Nuevo Ticket</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="recursos/funciones.js"></script>
+</body>
+</html>

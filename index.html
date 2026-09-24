@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HelpDesk IT: sistema web para registrar y hacer seguimiento de tickets de soporte técnico.">
+    <meta name="author" content="Equipo HelpDesk IT">
+    <title>HelpDesk IT | Inicio</title>
+    <link rel="stylesheet" href="recursos/style.css">
+</head>
+<body>
+
+    <header class="cabecera">
+        <div class="contenedor cabecera__contenido">
+            <a href="index.html" class="logo">HelpDesk<span>IT</span></a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="navegacion" id="navPrincipal" aria-label="Navegación principal">
+                <ul>
+                    <li><a href="index.html" class="activo">Inicio</a></li>
+                    <li><a href="tablero.html">Tablero</a></li>
+                    <li><a href="nuevo-ticket.html">Nuevo Ticket</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Sección de bienvenida (hero) -->
+        <section class="hero">
+            <div class="contenedor hero__contenido">
+                <div class="hero__texto">
+                    <h1>Gestioná tus tickets de soporte en un solo lugar</h1>
+                    <p>HelpDesk IT centraliza el registro, la organización y el seguimiento de las incidencias técnicas de tu organización. Basta de pedidos perdidos entre correos y mensajes sueltos.</p>
+                    <a href="nuevo-ticket.html" class="boton">Reportar una incidencia</a>
+                </div>
+                <div class="hero__imagen">
+                    <img src="imagenes/hero-soporte.png" alt="Ilustración de un equipo de soporte técnico gestionando tickets" width="480" height="320">
+                </div>
+            </div>
+        </section>
+
+        <!-- Cómo funciona -->
+        <section class="pasos" aria-labelledby="titulo-pasos">
+            <div class="contenedor">
+                <h2 id="titulo-pasos">¿Cómo funciona?</h2>
+                <div class="pasos__grilla">
+                    <article class="paso">
+                        <span class="paso__numero">1</span>
+                        <h3>Reportar</h3>
+                        <p>El usuario completa un formulario con los datos de su incidencia y la envía en segundos.</p>
+                    </article>
+                    <article class="paso">
+                        <span class="paso__numero">2</span>
+                        <h3>Seguir</h3>
+                        <p>El ticket queda registrado y visible en el tablero, con su estado y prioridad actualizados.</p>
+                    </article>
+                    <article class="paso">
+                        <span class="paso__numero">3</span>
+                        <h3>Resolver</h3>
+                        <p>El equipo técnico avanza el ticket entre columnas hasta darlo por resuelto.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Beneficios -->
+        <section class="beneficios" aria-labelledby="titulo-beneficios">
+            <div class="contenedor">
+                <h2 id="titulo-beneficios">Beneficios</h2>
+                <div class="beneficios__grilla">
+                    <article class="beneficio">
+                        <h3>Trazabilidad</h3>
+                        <p>Cada incidencia queda registrada con su historial de estado, evitando pedidos perdidos o duplicados.</p>
+                    </article>
+                    <article class="beneficio">
+                        <h3>Priorización</h3>
+                        <p>Los niveles de prioridad permiten atender primero lo crítico y organizar el trabajo del equipo.</p>
+                    </article>
+                    <article class="beneficio">
+                        <h3>Accesible desde el navegador</h3>
+                        <p>No requiere instalar software: funciona en cualquier dispositivo con conexión a internet.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <div class="contenedor pie__contenido">
+            <p><strong>HelpDesk IT</strong> — Proyecto Integrador de Programación Web I</p>
+            <p>Tecnicatura Universitaria en Programación de Sistemas · UCES</p>
+            <nav aria-label="Enlaces del pie">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="tablero.html">Tablero</a></li>
+                    <li><a href="nuevo-ticket.html">Nuevo Ticket</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="recursos/funciones.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Registrá una nueva incidencia de soporte técnico en HelpDesk IT mediante un formulario simple y accesible.">
+    <meta name="author" content="Equipo HelpDesk IT">
+    <title>HelpDesk IT | Nuevo Ticket</title>
+    <link rel="stylesheet" href="recursos/style.css">
+</head>
+<body>
+
+    <header class="cabecera">
+        <div class="contenedor cabecera__contenido">
+            <a href="index.html" class="logo">HelpDesk<span>IT</span></a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="navegacion" id="navPrincipal" aria-label="Navegación principal">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="tablero.html">Tablero</a></li>
+                    <li><a href="nuevo-ticket.html" class="activo">Nuevo Ticket</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        <h1>Registrar una incidencia</h1>
+        <p class="subtitulo">Completá los datos del problema. Los campos marcados con <abbr title="obligatorio">*</abbr> son obligatorios.</p>
+
+        <div class="registro">
+            <!-- Formulario de carga de ticket -->
+            <section class="formulario-seccion">
+                <form class="formulario" action="#" method="post">
+
+                    <div class="campo">
+                        <label for="nombre">Nombre del solicitante *</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej: Laura Gómez" required>
+                    </div>
+
+                    <div class="campo-doble">
+                        <div class="campo">
+                            <label for="email">Correo electrónico *</label>
+                            <input type="email" id="email" name="email" placeholder="nombre@empresa.com" required>
+                        </div>
+                        <div class="campo">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="11 5555-5555">
+                        </div>
+                    </div>
+
+                    <div class="campo-doble">
+                        <div class="campo">
+                            <label for="categoria">Categoría *</label>
+                            <select id="categoria" name="categoria" required>
+                                <option value="">Seleccioná una opción</option>
+                                <option value="hardware">Hardware</option>
+                                <option value="software">Software</option>
+                                <option value="redes">Redes</option>
+                                <option value="accesos">Accesos</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="prioridad">Prioridad *</label>
+                            <select id="prioridad" name="prioridad" required>
+                                <option value="">Seleccioná una opción</option>
+                                <option value="alta">Alta</option>
+                                <option value="media">Media</option>
+                                <option value="baja">Baja</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="descripcion">Descripción del problema *</label>
+                        <textarea id="descripcion" name="descripcion" rows="5" placeholder="Contanos qué está ocurriendo, desde cuándo y en qué equipo." required></textarea>
+                    </div>
+
+                    <div class="campo campo--check">
+                        <input type="checkbox" id="urgente" name="urgente" value="si">
+                        <label for="urgente">Marcar como incidencia urgente</label>
+                    </div>
+
+                    <div class="acciones">
+                        <button type="submit" class="boton">Enviar ticket</button>
+                        <button type="reset" class="boton boton--secundario">Limpiar</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Información de contacto directo -->
+            <aside class="contacto" aria-label="Contacto directo de soporte">
+                <h2>¿Preferís otro canal?</h2>
+                <p>Si tu incidencia es urgente, también podés comunicarte con la mesa de ayuda:</p>
+                <ul class="contacto__lista">
+                    <li><strong>Teléfono:</strong> <a href="tel:+541155550000">(011) 5555-0000</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:soporte@helpdeskit.com">soporte@helpdeskit.com</a></li>
+                    <li><strong>Horario:</strong> Lunes a viernes de 8 a 18 h</li>
+                </ul>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="pie">
+        <div class="contenedor pie__contenido">
+            <p><strong>HelpDesk IT</strong> — Proyecto Integrador de Programación Web I</p>
+            <p>Tecnicatura Universitaria en Programación de Sistemas · UCES</p>
+            <nav aria-label="Enlaces del pie">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="tablero.html">Tablero</a></li>
+                    <li><a href="nuevo-ticket.html">Nuevo Ticket</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="recursos/funciones.js"></script>
+</body>
+</html>
