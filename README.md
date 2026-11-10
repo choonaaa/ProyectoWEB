@@ -11,9 +11,7 @@ Sitio web multipágina para **registrar, organizar y hacer seguimiento de ticket
 
 El sitio está publicado con **GitHub Pages**:
 
-👉 **https://TU-USUARIO.github.io/TU-REPOSITORIO/**
-
-> *(Reemplazá `TU-USUARIO` y `TU-REPOSITORIO` por los datos reales una vez publicado.)*
+👉 **https://choonaaa.github.io/ProyectoWEB/**
 
 ---
 
@@ -55,27 +53,6 @@ El proyecto respeta la **separación de responsabilidades** del desarrollo del l
 └── README.md
 ```
 
----
-
-## 🚀 Cómo ejecutarlo localmente
-
-Al usar rutas relativas y `fetch`-free, se puede abrir con un servidor estático simple.
-
-**Opción rápida (con Python):**
-
-```bash
-# Dentro de la carpeta del proyecto
-python -m http.server 8000
-```
-
-Luego abrir en el navegador: `http://localhost:8000/`
-
-**Opción con VS Code:** instalar la extensión **Live Server** y hacer clic en *"Go Live"*.
-
-> ⚠️ Conviene usarlo a través de un servidor (y no abriendo el `.html` con doble clic) para que el ciclo petición/respuesta HTTP funcione igual que en producción.
-
----
-
 ## 🧩 Fases del proyecto
 
 El desarrollo se dividió en tres fases:
@@ -85,16 +62,3 @@ El desarrollo se dividió en tres fases:
 3. **Fase 3 — Interactividad (JS):** menú táctil, validación de formulario en tiempo real y el módulo Kanban (arrays, funciones, condicionales y bucles).
 
 ---
-
-## 📝 Publicar en GitHub Pages
-
-1. Subir el contenido de esta carpeta a un repositorio (el `index.html` debe quedar en la **raíz**).
-2. En el repositorio: **Settings → Pages**.
-3. En **Source**, elegir la rama `main` y la carpeta `/ (root)`.
-4. Guardar: el sitio queda publicado en `https://usuario.github.io/repositorio/`.
-
----
-
-## 👤 Autoría
-
-Proyecto desarrollado para la materia **Programación Web I** — UCES.
