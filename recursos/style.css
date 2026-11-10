@@ -27,7 +27,7 @@ body {
 
 .contenedor {
     width: 90%;
-    max-width: 1100px;
+    max-width: 960px;
     margin: 0 auto;
 }
 
@@ -149,12 +149,12 @@ main h2 { text-align: center; margin-bottom: 1.8rem; font-size: 1.7rem; }
 
 .pasos__grilla,
 .beneficios__grilla {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
     gap: 1.5rem;
 }
 
 .paso, .beneficio {
+    flex: 1;
     background-color: var(--blanco);
     padding: 1.5rem;
     border-radius: var(--radio);
@@ -204,13 +204,14 @@ main > h1 { margin-top: 2rem; }
 }
 
 .tablero {
-    display: grid;
-    grid-template-columns: 220px 1fr;
+    display: flex;
+    align-items: flex-start;
     gap: 1.5rem;
     margin-bottom: 2.5rem;
 }
 
 .filtros {
+    flex: 0 0 200px;
     background-color: var(--blanco);
     padding: 1.2rem;
     border-radius: var(--radio);
@@ -256,12 +257,13 @@ main > h1 { margin-top: 2rem; }
 }
 
 .kanban {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    flex: 1;
+    display: flex;
     gap: 1rem;
 }
 
 .columna {
+    flex: 1;
     background-color: #eaecef;
     border-radius: var(--radio);
     padding: 0.8rem;
@@ -303,13 +305,14 @@ main > h1 { margin-top: 2rem; }
 .etiqueta--baja { background-color: var(--baja); }
 
 .registro {
-    display: grid;
-    grid-template-columns: 1fr 300px;
+    display: flex;
+    align-items: flex-start;
     gap: 1.5rem;
     margin-bottom: 2.5rem;
 }
 
 .formulario-seccion {
+    flex: 1;
     background-color: var(--blanco);
     padding: 1.8rem;
     border-radius: var(--radio);
@@ -339,10 +342,10 @@ main > h1 { margin-top: 2rem; }
 }
 
 .campo-doble {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     gap: 1rem;
 }
+.campo-doble .campo { flex: 1; }
 
 .campo--check {
     display: flex;
@@ -355,6 +358,7 @@ main > h1 { margin-top: 2rem; }
 .acciones { display: flex; gap: 1rem; }
 
 .contacto {
+    flex: 0 0 290px;
     background-color: var(--azul-claro);
     padding: 1.5rem;
     border-radius: var(--radio);
@@ -367,22 +371,105 @@ main > h1 { margin-top: 2rem; }
 .pie {
     background-color: var(--azul);
     color: var(--blanco);
-    padding: 2rem 0;
+    padding: 2.5rem 0 1.5rem;
     margin-top: 2rem;
 }
-.pie__contenido { text-align: center; }
-.pie a { color: var(--azul-claro); }
-.pie nav ul {
-    list-style: none;
+.pie__contenido {
     display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 1rem;
+    justify-content: space-between;
+    gap: 2rem;
+}
+.pie__columna { flex: 1; }
+.pie__columna h3 { color: var(--blanco); font-size: 1.05rem; margin-bottom: 0.6rem; }
+.pie__columna p { font-size: 0.9rem; margin-bottom: 0.3rem; }
+.pie__columna ul { list-style: none; }
+.pie__columna li { margin-bottom: 0.3rem; }
+.pie a { color: var(--azul-claro); text-decoration: none; }
+.pie a:hover { text-decoration: underline; }
+
+/* ============================================================
+   FASE 3 — Estilos de interactividad (JS)
+   ============================================================ */
+
+/* Validación visual del formulario */
+.campo input.campo-ok,
+.campo select.campo-ok,
+.campo textarea.campo-ok {
+    border-color: #27795a;
+    background-color: #eaf6ef;
+}
+.campo input.campo-error,
+.campo select.campo-error,
+.campo textarea.campo-error {
+    border-color: var(--alta);
+    background-color: #fdecea;
 }
 
-@media (max-width: 768px) {
+/* Mensaje de aviso del formulario (éxito / error) */
+.aviso-form {
+    margin-top: 1rem;
+    padding: 0.7rem 1rem;
+    border-radius: var(--radio);
+    font-weight: 600;
+}
+.aviso-form--ok { background-color: #eaf6ef; color: #1e5c42; border: 1px solid #27795a; }
+.aviso-form--error { background-color: #fdecea; color: #9a2318; border: 1px solid var(--alta); }
 
-    /* Menú hamburguesa */
+/* Botones para mover las tarjetas del Kanban */
+.ticket__acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+}
+.ticket__mover {
+    width: 30px;
+    height: 26px;
+    border: 1px solid var(--gris-borde);
+    background-color: var(--blanco);
+    border-radius: 6px;
+    color: var(--azul);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.ticket__mover:hover:not(:disabled) { background-color: var(--azul-claro); }
+.ticket__mover:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ============================================================
+   BREAKPOINT TABLET — hasta 720px
+   Las columnas múltiples (aside + contenido) colapsan en vertical.
+   ============================================================ */
+@media (max-width: 720px) {
+
+    /* Hero apilado */
+    .hero__contenido { flex-direction: column-reverse; text-align: center; }
+
+    /* Pasos y beneficios en una sola columna */
+    .pasos__grilla,
+    .beneficios__grilla { flex-direction: column; }
+
+    /* Tablero: filtros arriba, Kanban abajo; columnas apiladas */
+    .tablero { flex-direction: column; }
+    .filtros { flex: 1 1 auto; width: 100%; }
+    .kanban { flex-direction: column; }
+
+    /* Formulario: el aside pasa debajo */
+    .registro { flex-direction: column; }
+    .contacto { flex: 1 1 auto; width: 100%; }
+
+    /* Pie de página: columnas que se envuelven */
+    .pie__contenido { flex-wrap: wrap; }
+    .pie__columna { flex: 1 1 40%; }
+}
+
+/* ============================================================
+   BREAKPOINT SMARTPHONE — hasta 480px
+   El menú se vuelve táctil (hamburguesa) y apila vertical.
+   Textos y márgenes se ajustan proporcionalmente.
+   ============================================================ */
+@media (max-width: 480px) {
+
+    /* Menú hamburguesa (botón visible, nav colapsa) */
     .menu-toggle { display: flex; }
 
     .navegacion {
@@ -395,24 +482,26 @@ main > h1 { margin-top: 2rem; }
         box-shadow: var(--sombra);
     }
     .navegacion.abierto { display: block; }
-    .navegacion ul { flex-direction: column; gap: 0; }
+
+    /* Apilamiento vertical de los ítems del menú */
+    .navegacion ul { flex-direction: column; align-items: stretch; gap: 0; }
     .navegacion li { border-top: 1px solid var(--gris-borde); }
     .navegacion a { display: block; padding: 0.9rem 1.2rem; }
 
-    
-    .hero__contenido { flex-direction: column-reverse; text-align: center; }
+    /* Ajuste proporcional de textos y espaciados */
+    .hero { padding: 2rem 0; }
     .hero__texto h1 { font-size: 1.6rem; }
+    main section { padding: 1.8rem 0; }
+    main h2 { font-size: 1.4rem; }
 
-    .pasos__grilla,
-    .beneficios__grilla,
-    .kanban {
-        grid-template-columns: 1fr;
-    }
+    /* Campos del formulario a ancho completo */
+    .campo-doble { flex-direction: column; }
 
-    .tablero { grid-template-columns: 1fr; }
+    /* Acciones y buscador apilados */
+    .acciones { flex-direction: column; }
+    .acciones .boton { width: 100%; text-align: center; }
 
-    .registro,
-    .campo-doble {
-        grid-template-columns: 1fr;
-    }
+    /* Pie de página en una sola columna */
+    .pie__contenido { flex-direction: column; gap: 1.2rem; }
+    .pie__columna { flex: 1 1 auto; }
 }

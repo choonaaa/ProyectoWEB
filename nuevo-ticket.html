@@ -34,7 +34,8 @@
 
         <div class="registro">
             <section class="formulario-seccion">
-                <form class="formulario" action="#" method="post">
+                <!-- novalidate: la validación la controla íntegramente JavaScript (Fase 3) -->
+                <form class="formulario" action="#" method="post" novalidate>
 
                     <div class="campo">
                         <label for="nombre">Nombre del solicitante *</label>
@@ -106,8 +107,23 @@
 
     <footer class="pie">
         <div class="contenedor pie__contenido">
-            <p><strong>HelpDesk IT</strong></p>
-            <p>Resolve tus problemas de soporte técnico en segundos.</p>
+            <div class="pie__columna">
+                <h3>HelpDesk IT</h3>
+                <p>Sistema web de gestión de tickets de soporte técnico.</p>
+            </div>
+            <nav class="pie__columna" aria-label="Mapa del sitio">
+                <h3>Mapa del sitio</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="tablero.html">Tablero</a></li>
+                    <li><a href="nuevo-ticket.html">Nuevo Ticket</a></li>
+                </ul>
+            </nav>
+            <div class="pie__columna">
+                <h3>Equipo de desarrollo</h3>
+                <p>Proyecto Integrador · Programación Web I</p>
+                <p>Tecnicatura en Programación de Sistemas · UCES</p>
+            </div>
         </div>
     </footer>
 
