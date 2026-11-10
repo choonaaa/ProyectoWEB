@@ -13,9 +13,50 @@
 window.addEventListener("load", iniciar);
 
 function iniciar() {
+    initTema();          // 0. Modo oscuro / claro
     initMenuMovil();     // 1. Menú táctil móvil
     initValidacion();    // 2. Validación visual del formulario
     initTablero();       // 3. Módulo de lógica: Mini-Kanban
+}
+
+
+/* ============================================================
+   0. MODO OSCURO / CLARO
+   Alterna el tema con un botón (🌙 / ☀️) y recuerda la
+   preferencia del usuario en localStorage.
+   ============================================================ */
+function initTema() {
+    var boton = document.getElementById("temaToggle");
+
+    // Aplica el tema guardado al cargar la página
+    var guardado = null;
+    try { guardado = localStorage.getItem("helpdesk_tema"); } catch (e) {}
+    if (guardado === "oscuro") {
+        document.documentElement.setAttribute("data-theme", "dark");
+    }
+    actualizarIconoTema(boton);
+
+    if (!boton) return;
+
+    boton.addEventListener("click", function () {
+        var esOscuro = document.documentElement.getAttribute("data-theme") === "dark";
+        if (esOscuro) {
+            document.documentElement.removeAttribute("data-theme");
+            try { localStorage.setItem("helpdesk_tema", "claro"); } catch (e) {}
+        } else {
+            document.documentElement.setAttribute("data-theme", "dark");
+            try { localStorage.setItem("helpdesk_tema", "oscuro"); } catch (e) {}
+        }
+        actualizarIconoTema(boton);
+    });
+}
+
+// Muestra la luna (si está en claro) o el sol (si está en oscuro)
+function actualizarIconoTema(boton) {
+    if (!boton) return;
+    var esOscuro = document.documentElement.getAttribute("data-theme") === "dark";
+    boton.textContent = esOscuro ? "☀️" : "🌙";
+    boton.setAttribute("aria-label", esOscuro ? "Activar modo claro" : "Activar modo oscuro");
 }
 
 
@@ -65,8 +106,11 @@ function initValidacion() {
             evento.preventDefault(); // No envía si algo está mal
             mostrarMensaje(formulario, "Revisá los campos marcados en rojo.", "error");
         } else {
-            evento.preventDefault(); // (Sitio estático: no hay servidor)
-            mostrarMensaje(formulario, "¡Ticket enviado correctamente!", "ok");
+            evento.preventDefault(); // Sitio estático: guardamos en el navegador
+            var nuevo = crearTicketDesdeFormulario();
+            mostrarMensaje(formulario,
+                "¡Ticket " + nuevo.id + " creado! Lo vas a ver en el Tablero, en la columna \"Nuevo\".",
+                "ok");
             formulario.reset();
             // Limpia los estilos de validación tras resetear
             campos.forEach(function (campo) {
@@ -74,6 +118,27 @@ function initValidacion() {
             });
         }
     });
+}
+
+// Toma los datos del formulario, crea el ticket y lo guarda en localStorage
+function crearTicketDesdeFormulario() {
+    var lista = cargarTickets();
+
+    var nuevo = {
+        id: generarId(lista),
+        titulo: document.getElementById("descripcion").value.trim(),
+        categoria: document.getElementById("categoria").value,
+        prioridad: document.getElementById("prioridad").value,
+        estado: "nuevo" // Todo ticket nuevo entra en la primera columna
+    };
+
+    lista.push(nuevo);
+
+    try {
+        localStorage.setItem(CLAVE_TICKETS, JSON.stringify(lista));
+    } catch (e) { /* localStorage no disponible */ }
+
+    return nuevo;
 }
 
 // Valida un campo y aplica el color correspondiente. Devuelve true si es válido.
@@ -120,8 +185,8 @@ function mostrarMensaje(formulario, texto, tipo) {
    - Filtros (categoría/prioridad) y búsqueda por texto (bucle for).
    ============================================================ */
 
-// Arreglo de objetos: el "modelo" de datos del tablero
-var tickets = [
+// Tickets de ejemplo iniciales (se cargan la primera vez)
+var ticketsBase = [
     { id: "TK-001", titulo: "La impresora de contaduría no responde", categoria: "hardware", prioridad: "alta",  estado: "nuevo" },
     { id: "TK-002", titulo: "Solicitud de acceso al sistema de ventas", categoria: "accesos",  prioridad: "media", estado: "nuevo" },
     { id: "TK-003", titulo: "El correo no envía adjuntos grandes",      categoria: "software",  prioridad: "baja",  estado: "nuevo" },
@@ -131,8 +196,44 @@ var tickets = [
     { id: "TK-007", titulo: "Restablecer contraseña de usuario",        categoria: "accesos",   prioridad: "media", estado: "resuelto" }
 ];
 
+// Clave usada para guardar los tickets en el navegador (localStorage)
+var CLAVE_TICKETS = "helpdesk_tickets";
+
+// Arreglo de objetos: el "modelo" de datos del tablero (se llena desde localStorage)
+var tickets = [];
+
+// Lee los tickets guardados; si no hay, usa los de ejemplo
+function cargarTickets() {
+    try {
+        var guardado = localStorage.getItem(CLAVE_TICKETS);
+        if (guardado) { return JSON.parse(guardado); }
+    } catch (e) { /* localStorage no disponible */ }
+    return ticketsBase.slice(); // copia de los iniciales
+}
+
+// Guarda el arreglo actual de tickets en el navegador
+function guardarTickets() {
+    try {
+        localStorage.setItem(CLAVE_TICKETS, JSON.stringify(tickets));
+    } catch (e) { /* localStorage no disponible */ }
+}
+
+// Genera el próximo ID (ej: TK-008) a partir del mayor existente
+function generarId(lista) {
+    var max = 0;
+    for (var i = 0; i < lista.length; i++) {
+        var n = parseInt(lista[i].id.replace("TK-", ""), 10);
+        if (!isNaN(n) && n > max) { max = n; }
+    }
+    var num = max + 1;
+    return "TK-" + ("00" + num).slice(-3); // rellena a 3 dígitos
+}
+
 // Orden de los estados para mover las tarjetas
 var ESTADOS = ["nuevo", "progreso", "resuelto"];
+
+// Nombre visible de cada columna
+var NOMBRES = { nuevo: "Nuevo", progreso: "En Progreso", resuelto: "Resuelto" };
 
 // Filtro y búsqueda actualmente activos
 var seleccion = { categoria: "todas", prioridad: "todas" };
@@ -141,6 +242,8 @@ var textoBusqueda = "";
 function initTablero() {
     var kanban = document.querySelector(".kanban");
     if (!kanban) return; // No estamos en tablero.html
+
+    tickets = cargarTickets(); // Carga los tickets guardados (o los de ejemplo)
 
     // Filtros laterales
     var botonesFiltro = document.querySelectorAll(".filtro");
@@ -215,6 +318,12 @@ function renderTablero() {
             vacio.textContent = "Sin tickets";
             lista.appendChild(vacio);
         }
+
+        // Actualiza el título de la columna con el contador
+        var titulo = lista.parentElement.querySelector(".columna__titulo");
+        if (titulo) {
+            titulo.textContent = NOMBRES[estado] + " (" + visibles + ")";
+        }
     }
 }
 
@@ -257,11 +366,33 @@ function crearTarjeta(ticket) {
     btnAdelante.disabled = (indice === ESTADOS.length - 1); // No avanza desde "Resuelto"
     btnAdelante.addEventListener("click", function () { moverTicket(ticket, 1); });
 
+    // Botón para borrar el ticket
+    var btnBorrar = document.createElement("button");
+    btnBorrar.type = "button";
+    btnBorrar.className = "ticket__borrar";
+    btnBorrar.textContent = "🗑";
+    btnBorrar.setAttribute("aria-label", "Borrar ticket");
+    btnBorrar.addEventListener("click", function () { borrarTicket(ticket); });
+
+    acciones.appendChild(btnBorrar);
     acciones.appendChild(btnAtras);
     acciones.appendChild(btnAdelante);
     art.appendChild(acciones);
 
     return art;
+}
+
+// Borra un ticket del arreglo (con confirmación) y vuelve a dibujar
+function borrarTicket(ticket) {
+    var confirmar = window.confirm('¿Borrar el ticket #' + ticket.id + '?');
+    if (!confirmar) return;
+
+    var indice = tickets.indexOf(ticket);
+    if (indice !== -1) {
+        tickets.splice(indice, 1); // Lo saca del arreglo
+        guardarTickets();          // Persiste el cambio
+        renderTablero();           // Redibuja el tablero
+    }
 }
 
 // Mueve un ticket de estado (condicional + actualización del modelo)
@@ -271,6 +402,7 @@ function moverTicket(ticket, direccion) {
 
     if (nuevoIndice >= 0 && nuevoIndice < ESTADOS.length) {
         ticket.estado = ESTADOS[nuevoIndice]; // Cambia el dato en el arreglo
+        guardarTickets();                      // Persiste el cambio
         renderTablero();                       // Vuelve a dibujar el tablero
     }
 }
